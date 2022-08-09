@@ -1,12 +1,9 @@
 const Express = require("express");
 const app = Express();
 const joi = require("joi");
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 app.use(Express.json());
-
-const Gets = require("./Routes/Get");
-app.use("/", Gets);
 
 const products = [
   {
@@ -46,10 +43,15 @@ const products = [
   },
 ];
 
-mongoose.connect(
-  "mongodb+srv://ShopUnionAdmin:YflOVRNKfgcjN4XF@cluster0.9yswveu.mongodb.net/?retryWrites=true&w=majority",
-  () => console.log("Connected To Database!")
-);
+app.get("/", (req, res) => {
+  res.send("ShopUnion™ Api v1.0");
+});
+app.get("/api", (req, res) => {
+  res.send("ShopUnion™ Api v1.0");
+});
+
+
+mongoose.connect("mongodb+srv://ShopUnionAdmin:YflOVRNKfgcjN4XF@cluster0.9yswveu.mongodb.net/?retryWrites=true&w=majority", ()=>console.log("Connected To Database!"))
 
 app.get("/api/products", (req, res) => {
   res.send(products);
