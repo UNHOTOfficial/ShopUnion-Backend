@@ -1,14 +1,22 @@
-const mongoose = require('mongoose');
+const { number } = require("joi");
+const mongoose = require("mongoose");
 
-const dataSchema = new mongoose.Schema({
-    name: {
-        required: true,
-        type: String
-    },
-    age: {
-        required: true,
-        type: Number
-    }
-})
+const productSchema = new mongoose.Schema({
+  image: { type: String, required: true },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  price: { type: Number, required: true, min: 1 },
+  hasDiscount: { type: Boolean, required: true },
+  discount: { type: Number, required: true, min: 0 },
+  rating: {
+    rate: { type: Number, required: true, min: 0, max: 5 },
+    count: { type: Number, required: true },
+  },
+  createDate: {
+    type: Date,
+    default: () => Date.now(),
+    immutable: true,
+  },
+});
 
-module.exports = mongoose.model('Data', dataSchema)
+module.exports = mongoose.model("Product", productSchema);

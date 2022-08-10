@@ -1,78 +1,88 @@
-const express = require('express');
-const bodyParser = require("body-parser")
+const express = require("express");
+const router = express.Router();
+const mongoose = require("mongoose");
+const Product = require("../model/model");
+const app = express();
 
-const router = express.Router()
+router.use("/", express.json());
 
-express().use(bodyParser.urlencoded({extended: false}))
+const Model = require("../model/model");
 
-
-const Model = require('../model/model');
+//main get
+router.get("/", (req, res) => {
+  res.send("ShopUnion Api");
+});
 
 //Post Method
-router.post('/post', async (req, res) => {
-    
-    try {
-        const data = new Model({
-            name: req.body.name,
-            age: req.body.age
-        })
-        const dataToSave = await data.save();
-        res.status(200).json(dataToSave)
-    }
-    catch (error) {
-        res.status(400).json({message: error.message})
-    }
-})
+router.post("/post", async (req, res) => {
+  try {
+    const product = new Product({
+      image: req.body.image,
+      title: req.body.title,
+      description: req.body.description,
+      price: req.body.price,
+      hasDiscount: req.body.hasDiscount,
+      discount: req.body.discount,
+      rating: {
+        rate: req.body.rating.rate,
+        count: req.body.rating.count,
+      },
+    });
+
+    const dataToSave = await product.save();
+    const responseToSend = {
+      message: "Product Saved Successfully!",
+      Product: dataToSave,
+    };
+    res.status(200).json(responseToSend);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
 //Get all Method
-router.get('/getAll', async (req, res) => {
-    try{
-        const data = await Model.find();
-        res.json(data)
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
-})
+router.get("/getAll", async (req, res) => {
+  try {
+    const data = await Model.find();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 //Get by ID Method
-router.get('/getOne/:id', async (req, res) => {
-    try{
-        const data = await Model.findById(req.params.id);
-        res.json(data)
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
-})
+router.get("/getOne/:id", async (req, res) => {
+  try {
+    const data = await Model.findById(req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 //Update by ID Method
-router.patch('/update/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        const updatedData = req.body;
-        const options = { new: true };
+router.patch("/update/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
+    const options = { new: true };
 
-        const result = await Model.findByIdAndUpdate(
-            id, updatedData, options
-        )
+    const result = await Model.findByIdAndUpdate(id, updatedData, options);
 
-        res.send(result)
-    }
-    catch (error) {
-        res.status(400).json({ message: error.message })
-    }
-})
+    res.send(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
 //Delete by ID Method
-router.delete('/delete/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        const data = await Model.findByIdAndDelete(id)
-        res.send(`Document with ${data.name} has been deleted..`)
-    }
-    catch (error) {
-        res.status(400).json({ message: error.message })
-    }
-})
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = await Model.findByIdAndDelete(id);
+    res.send(`Document with ${data.name} has been deleted..`);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
 module.exports = router;
