@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 });
 
 //Post Method
-router.post("/post", async (req, res) => {
+router.post("/products", async (req, res) => {
   try {
     const product = new Product({
       image: req.body.image,
@@ -29,19 +29,25 @@ router.post("/post", async (req, res) => {
       },
     });
 
-    const dataToSave = await product.save();
-    const responseToSend = {
-      message: "Product Saved Successfully!",
-      Product: dataToSave,
-    };
-    res.status(200).json(responseToSend);
+    const checkProduct = await Model.exists({ title: product.title });
+    if (checkProduct !== null) {
+      const duplicateError = `Another Product With (${product.title}) Already Exists!\n Can't Save Duplicate Products.`;
+      res.status(409).send(duplicateError);
+    } else {
+      const dataToSave = await product.save();
+      const responseToSend = {
+        message: "Product Saved Successfully!",
+        Product: dataToSave,
+      };
+      res.status(200).json(responseToSend);
+    }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
 //Get all Method
-router.get("/getAll", async (req, res) => {
+router.get("/products", async (req, res) => {
   try {
     const data = await Model.find();
     res.json(data);
@@ -50,7 +56,7 @@ router.get("/getAll", async (req, res) => {
   }
 });
 //Get by ID Method
-router.get("/getOne/:id", async (req, res) => {
+router.get("/products/:id", async (req, res) => {
   try {
     const data = await Model.findById(req.params.id);
     res.json(data);
@@ -60,26 +66,46 @@ router.get("/getOne/:id", async (req, res) => {
 });
 
 //Update by ID Method
-router.patch("/update/:id", async (req, res) => {
+router.patch("/products/:id", async (req, res) => {
   try {
-    const id = req.params.id;
-    const updatedData = req.body;
-    const options = { new: true };
+    let result = await Model.findById(req.params.id);
 
-    const result = await Model.findByIdAndUpdate(id, updatedData, options);
+    result.image = req.body.image;
+    result.title = req.body.title;
+    result.description = req.body.description;
+    result.price = req.body.price;
+    result.hasDiscount = req.body.hasDiscount;
+    result.discount = req.body.discount;
+    result.rating.rate = req.body.rating.rate;
+    result.rating.count = req.body.rating.count;
+    result.updateDate = Date.now();
 
-    res.send(result);
+    const checkProduct = await Model.exists({ title: result.title });
+    if (checkProduct !== null) {
+      const duplicateError = `Another Product With (${result.title}) Already Exists!\n Can't Save Duplicate Products.`;
+      res.status(409).send(duplicateError);
+    } else {
+      const dataToSave = await result.save();
+      const responseToSend = {
+        message: "Product Updated Successfully!",
+        Product: dataToSave,
+      };
+      res.status(200).json(responseToSend);
+    }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
 //Delete by ID Method
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/products/:id", async (req, res) => {
   try {
-    const id = req.params.id;
-    const data = await Model.findByIdAndDelete(id);
-    res.send(`Document with ${data.name} has been deleted..`);
+    const data = await Model.findByIdAndDelete(req.params.id);
+    const responseToSend = {
+      message: `Product (${data.title}) Removed Successfully!`,
+      Product: data,
+    };
+    res.send(responseToSend);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

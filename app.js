@@ -28,32 +28,3 @@ app.listen(3001, () => {
 app.get("/", (req, res) => {
   res.send("ShopUnion Api");
 });
-
-//creating an async function
-const run = async () => {
-  try {
-    //creating local product
-    const product = new Product({
-      image: "http://placeimg.com/640/480/sports",
-      title: "First Product",
-      description: "good product",
-      price: 50,
-      hasDiscount: true,
-      discount: 10,
-      rating: {
-        rate: 4.5,
-        count: 120,
-      },
-    });
-    //sending local product to database
-    //await product.save();
-
-    //log to console if successful
-    console.log(`Product Saved Successfully! : ${product}`);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-//calling async function
-run();
