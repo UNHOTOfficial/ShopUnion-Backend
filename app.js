@@ -4,6 +4,9 @@ const Product = require("./models/Products");
 const routes = require("./routes/routes");
 const app = express();
 
+const cors = require("cors")
+app.use(cors())
+
 app.use("/api", routes);
 
 mongoose.connect(

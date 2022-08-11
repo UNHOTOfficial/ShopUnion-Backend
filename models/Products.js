@@ -1,4 +1,3 @@
-const { number } = require("joi");
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
@@ -12,6 +11,7 @@ const productSchema = new mongoose.Schema({
     rate: { type: Number, required: true, min: 0, max: 5 },
     count: { type: Number, required: true },
   },
+  category: { type: String, required: true },
   createDate: {
     type: Date,
     default: () => Date.now(),

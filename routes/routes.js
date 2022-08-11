@@ -21,6 +21,7 @@ router.post("/products", async (req, res) => {
       price: req.body.price,
       hasDiscount: req.body.hasDiscount,
       discount: req.body.discount,
+      category: req.body.category,
       rating: {
         rate: req.body.rating.rate,
         count: req.body.rating.count,
@@ -83,6 +84,7 @@ router.patch("/products/:id", async (req, res) => {
       result.price = req.body.price;
       result.hasDiscount = req.body.hasDiscount;
       result.discount = req.body.discount;
+      result.category = req.body.category;
       result.rating.rate = req.body.rating.rate;
       result.rating.count = req.body.rating.count;
       result.updateDate = Date.now();
