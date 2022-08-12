@@ -6,7 +6,14 @@ const userSchema = new mongoose.Schema({
   lastName: { type: String, required: true, min: 2 },
   country: { type: String, required: true },
   birthday: { type: String, required: true, min: 3 },
-  email: { type: String, required: true, min: 5, validate: [isEmail, 'invalid email'],index: { unique: true } },
+  phone: { type: String, required: true, index: { unique: true } },
+  email: {
+    type: String,
+    required: true,
+    min: 5,
+    validate: [isEmail, "invalid email"],
+    index: { unique: true },
+  },
   password: { type: String, required: true, min: 6, max: 25 },
   createDate: {
     type: Date,

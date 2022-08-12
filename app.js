@@ -3,13 +3,17 @@ const mongoose = require("mongoose");
 const Product = require("./models/Products");
 const ProductsRoutes = require("./routes/Products");
 const UsersRoutes = require("./routes/Users");
+const NewsletterSubsRoutes = require("./routes/NewsletterSubs");
 const app = express();
 
 const cors = require("cors");
+const NewsletterSubs = require("./models/NewsletterSubs");
 app.use(cors());
 
 app.use("/api/products", ProductsRoutes);
 app.use("/api/users", UsersRoutes);
+app.use("/api/newsletter", NewsletterSubsRoutes);
+
 
 mongoose.connect(
   "mongodb+srv://ShopUnionAdmin:ErM3BEIdyaz71PuT@cluster0.9yswveu.mongodb.net/test"
