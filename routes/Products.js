@@ -4,15 +4,11 @@ const mongoose = require("mongoose");
 const Product = require("../models/Products");
 const Model = require("../models/Products");
 
-router.use("/", express.json());
+router.use(express.json());
 
-//Home get
-router.get("/", (req, res) => {
-  res.send("ShopUnion Api");
-});
 
 //Post Method
-router.post("/products", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const product = new Product({
       image: req.body.image,
@@ -46,7 +42,7 @@ router.post("/products", async (req, res) => {
 });
 
 //Get all Method
-router.get("/products", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const data = await Model.find();
     res.json(data);
@@ -56,7 +52,7 @@ router.get("/products", async (req, res) => {
 });
 
 //Get by ID Method
-router.get("/products/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const data = await Model.findById(req.params.id);
     if (data === null) {
@@ -71,7 +67,7 @@ router.get("/products/:id", async (req, res) => {
 });
 
 //Update by ID Method
-router.patch("/products/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
   try {
     let result = await Model.findById(req.params.id);
     if (result === null) {
@@ -108,7 +104,7 @@ router.patch("/products/:id", async (req, res) => {
 });
 
 //Delete by ID Method
-router.delete("/products/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const data = await Model.findByIdAndDelete(req.params.id);
     if (data === null) {

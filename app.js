@@ -1,13 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("./models/Products");
-const routes = require("./routes/routes");
+const ProductsRoutes = require("./routes/Products");
+const UsersRoutes = require("./routes/Users");
 const app = express();
 
-const cors = require("cors")
-app.use(cors())
+const cors = require("cors");
+app.use(cors());
 
-app.use("/api", routes);
+app.use("/api/products", ProductsRoutes);
+app.use("/api/users", UsersRoutes);
 
 mongoose.connect(
   "mongodb+srv://ShopUnionAdmin:ErM3BEIdyaz71PuT@cluster0.9yswveu.mongodb.net/test"
