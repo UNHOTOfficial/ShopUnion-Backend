@@ -5,6 +5,7 @@ const ProductsRoutes = require("./routes/Products");
 const UsersRoutes = require("./routes/Users");
 const NewsletterSubsRoutes = require("./routes/NewsletterSubs");
 const app = express();
+app.disable('x-powered-by');  
 
 const cors = require("cors");
 const NewsletterSubs = require("./models/NewsletterSubs");
