@@ -18,6 +18,8 @@ router.post("/", async (req, res) => {
       hasDiscount: req.body.hasDiscount,
       discount: req.body.discount,
       category: req.body.category,
+      quantity: req.body.quantity,
+      specifications: req.body.specifications,
       rating: {
         rate: req.body.rating.rate,
         count: req.body.rating.count,

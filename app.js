@@ -4,6 +4,7 @@ const Product = require("./models/Products");
 const ProductsRoutes = require("./routes/Products");
 const UsersRoutes = require("./routes/Users");
 const NewsletterSubsRoutes = require("./routes/NewsletterSubs");
+const ConfigsRoutes = require("./routes/Configs");
 const app = express();
 app.disable('x-powered-by');  
 
@@ -14,6 +15,7 @@ app.use(cors());
 app.use("/api/products", ProductsRoutes);
 app.use("/api/users", UsersRoutes);
 app.use("/api/newsletter", NewsletterSubsRoutes);
+app.use("/api/configs", ConfigsRoutes);
 
 
 mongoose.connect(
