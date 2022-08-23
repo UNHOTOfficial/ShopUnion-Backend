@@ -5,6 +5,7 @@ const ProductsRoutes = require("./routes/Products");
 const UsersRoutes = require("./routes/Users");
 const NewsletterSubsRoutes = require("./routes/NewsletterSubs");
 const ConfigsRoutes = require("./routes/Configs");
+const TilesRoutes = require("./routes/Tiles");
 const app = express();
 app.disable('x-powered-by');  
 
@@ -16,6 +17,8 @@ app.use("/api/products", ProductsRoutes);
 app.use("/api/users", UsersRoutes);
 app.use("/api/newsletter", NewsletterSubsRoutes);
 app.use("/api/configs", ConfigsRoutes);
+app.use("/api/tiles", TilesRoutes);
+
 
 
 mongoose.connect(
