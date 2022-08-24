@@ -1,5 +1,20 @@
-Make Apis. ✅
+•─────⋅☾ 🧩 Model Schemas ☽⋅─────•
+
+
+•─────⋅☾ 📍 Routes & Methods ☽⋅─────•
+
+
+•─────⋅☾ 🔐 Security ☽⋅─────•
 Jwt Authentication.
 Make Users Permissions.
+
+
+•─────⋅☾ 📚 Database ☽⋅─────•
+
+
+•─────⋅☾ 🔌 Connection With FrontEnd ☽⋅─────•
 Move All Validations And Calculations To Backend.
+
+•─────⋅☾ 💡 Optimization ☽⋅─────•
 Make Codes Cleaner.
+Optimize Routes.
