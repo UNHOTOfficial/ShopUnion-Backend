@@ -6,7 +6,6 @@ const Model = require("../models/Products");
 
 router.use(express.json());
 
-
 //Post Method
 router.post("/", async (req, res) => {
   try {
@@ -83,6 +82,8 @@ router.patch("/:id", async (req, res) => {
       result.hasDiscount = req.body.hasDiscount;
       result.discount = req.body.discount;
       result.category = req.body.category;
+      result.quantity = req.body.quantity;
+      result.specifications = req.body.specifications;
       result.rating.rate = req.body.rating.rate;
       result.rating.count = req.body.rating.count;
       result.updateDate = Date.now();

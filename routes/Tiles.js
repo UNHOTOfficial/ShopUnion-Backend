@@ -68,13 +68,13 @@ router.patch("/:id", async (req, res) => {
 //Delete by ID Method
 router.delete("/:id", async (req, res) => {
   try {
-    const data = await NewsletterSubs.findByIdAndDelete(req.params.id);
+    const data = await Tiles.findByIdAndDelete(req.params.id);
     if (data === null) {
-      const notExitError = `Email Doesn't Exists!`;
+      const notExitError = `Tile Doesn't Exists!`;
       res.status(404).send(notExitError);
     } else {
       const responseToSend = {
-        message: `Email (${data.email}) Removed Successfully!`,
+        message: `Tile (${data.email}) Removed Successfully!`,
         Email: data,
       };
       res.send(responseToSend);
