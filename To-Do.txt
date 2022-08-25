@@ -7,7 +7,7 @@
 •─────⋅☾ 🔐 Security ☽⋅─────•
 Jwt Authentication.
 Make Users Permissions.
-
+Mail Confirmation On Sign Ups.
 
 •─────⋅☾ 📚 Database ☽⋅─────•
 

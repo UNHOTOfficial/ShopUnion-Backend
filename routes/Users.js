@@ -47,10 +47,25 @@ router.get("/", async (req, res) => {
   }
 });
 
-//Get by ID Method
-router.get("/:id", async (req, res) => {
+// //Get by ID Method
+// router.get("/:id", async (req, res) => {
+//   try {
+//     const data = await Users.findById(req.params.id);
+//     if (data === null) {
+//       const notExitError = `User Doesn't Exists!`;
+//       res.status(404).send(notExitError);
+//     } else {
+//       res.json(data);
+//     }
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
+
+//Get by Email Method
+router.get("/:email", async (req, res) => {
   try {
-    const data = await Users.findById(req.params.id);
+    const data = await Users.findOne({ email: req.params.email });
     if (data === null) {
       const notExitError = `User Doesn't Exists!`;
       res.status(404).send(notExitError);
