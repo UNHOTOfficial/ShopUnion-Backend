@@ -83,6 +83,7 @@ router.patch("/:id", async (req, res) => {
       result.discount = req.body.discount;
       result.category = req.body.category;
       result.quantity = req.body.quantity;
+      result.category = req.body.category;
       result.specifications = req.body.specifications;
       result.rating.rate = req.body.rating.rate;
       result.rating.count = req.body.rating.count;

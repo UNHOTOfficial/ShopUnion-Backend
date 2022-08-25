@@ -11,7 +11,10 @@ const productSchema = new mongoose.Schema({
     rate: { type: Number, required: true, min: 0, max: 5 },
     count: { type: Number, required: true },
   },
-  category: { type: String, required: true },
+  category: {
+    main: { type: String, required: true },
+    type: { type: String, required: true },
+  },
   quantity: { type: Number, required: true },
   specifications: { type: Object, required: true },
   createDate: {
