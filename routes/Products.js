@@ -67,6 +67,25 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//Get by Name Method
+router.get("/search/:title", async (req, res) => {
+  try {
+    const title = req.params.title;
+
+    const data = await Model.find({
+      $or: [{ title: { $regex: new RegExp(`^${title}`), $options: "i" } }],
+    });
+    if (data.length <= 0) {
+      const notExitError = `Product Not Found!`;
+      res.status(404).send(notExitError);
+    } else {
+      res.json(data);
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 //Update by ID Method
 router.patch("/:id", async (req, res) => {
   try {
